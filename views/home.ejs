@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Stay-Vihari | Discover Your Next Stay</title>
+
+    <link
+        rel="stylesheet"
+        href="/css/style.css"
+    >
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         NAVBAR
+    ========================== -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+
+            <a
+                href="/"
+                style="text-decoration: none; color: inherit;"
+            >
+                Stay-Vihari
+            </a>
+
+        </div>
+
+
+        <div class="nav-links">
+
+            <a href="/">
+                Home
+            </a>
+
+            <a href="/listings">
+                Explore
+            </a>
+
+
+            <% if (currentUser) { %>
+
+                <span class="nav-user">
+                    Hi, <%= currentUser.username %>
+                </span>
+
+                <a href="/users/logout">
+                    Logout
+                </a>
+
+            <% } else { %>
+
+                <a href="/users/login">
+                    Login
+                </a>
+
+                <a
+                    href="/users/signup"
+                    class="signup-btn"
+                >
+                    Sign Up
+                </a>
+
+            <% } %>
+
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- =========================
+         HERO
+    ========================== -->
+
+    <main>
+
+        <section class="hero">
+
+            <div class="hero-content">
+
+                <p class="hero-label">
+                    YOUR JOURNEY STARTS HERE
+                </p>
+
+
+                <h1>
+                    Find a stay that feels like home.
+                </h1>
+
+
+                <p class="hero-description">
+
+                    Discover unique stays, beautiful destinations
+                    and unforgettable travel experiences.
+
+                </p>
+
+
+                <form
+                    class="search-box"
+                    action="/listings/search"
+                    method="GET"
+                >
+
+                    <input
+                        type="text"
+                        name="country"
+                        placeholder="Where do you want to go?"
+                    >
+
+
+                    <button type="submit">
+                        Search
+                    </button>
+
+                </form>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================
+             CATEGORIES
+        ========================== -->
+
+        <section class="section">
+
+            <div class="section-header">
+
+                <div>
+
+                    <p class="section-label">
+                        EXPLORE
+                    </p>
+
+                    <h2>
+                        Find your perfect stay
+                    </h2>
+
+                </div>
+
+
+                <a href="/listings">
+                    Explore all →
+                </a>
+
+            </div>
+
+
+            <div class="categories">
+
+
+                <a
+                    href="/listings/category/trending"
+                    class="category-card"
+                >
+
+                    <span>
+                        🔥
+                    </span>
+
+                    <h3>
+                        Trending
+                    </h3>
+
+                    <p>
+                        Popular stays right now
+                    </p>
+
+                </a>
+
+
+
+                <a
+                    href="/listings/category/mountain"
+                    class="category-card"
+                >
+
+                    <span>
+                        🏔️
+                    </span>
+
+                    <h3>
+                        Mountains
+                    </h3>
+
+                    <p>
+                        Escape into nature
+                    </p>
+
+                </a>
+
+
+
+                <a
+                    href="/listings/category/city"
+                    class="category-card"
+                >
+
+                    <span>
+                        🏙️
+                    </span>
+
+                    <h3>
+                        City
+                    </h3>
+
+                    <p>
+                        Stay in the heart of the city
+                    </p>
+
+                </a>
+
+
+
+                <a
+                    href="/listings/category/camping"
+                    class="category-card"
+                >
+
+                    <span>
+                        🏕️
+                    </span>
+
+                    <h3>
+                        Camping
+                    </h3>
+
+                    <p>
+                        Adventure under the stars
+                    </p>
+
+                </a>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================
+             FEATURED STAYS
+        ========================== -->
+
+        <section class="section featured">
+
+            <div class="section-header">
+
+                <div>
+
+                    <p class="section-label">
+                        FEATURED STAYS
+                    </p>
+
+                    <h2>
+                        Places you'll love
+                    </h2>
+
+                </div>
+
+
+                <a href="/listings">
+                    View all →
+                </a>
+
+            </div>
+
+
+            <div class="listing-grid">
+
+
+                <!-- LISTING 1 -->
+
+                <article class="listing-card">
+
+                    <div class="listing-image-container">
+
+                        <img
+                            src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c"
+                            alt="Luxury mountain villa"
+                        >
+
+
+                        <button
+                            class="heart-button"
+                            type="button"
+                            aria-label="Add to favourites"
+                        >
+                            ♡
+                        </button>
+
+                    </div>
+
+
+                    <div class="listing-info">
+
+                        <div class="listing-title-row">
+
+                            <h3>
+                                Luxury Mountain Villa
+                            </h3>
+
+                            <span>
+                                ★ 4.8
+                            </span>
+
+                        </div>
+
+
+                        <p>
+                            Manali, India
+                        </p>
+
+
+                        <strong>
+                            ₹8,500 / night
+                        </strong>
+
+
+                        <br>
+
+
+                        <a
+                            href="/listings/1"
+                            class="view-listing"
+                        >
+                            View details →
+                        </a>
+
+                    </div>
+
+                </article>
+
+
+
+                <!-- LISTING 2 -->
+
+                <article class="listing-card">
+
+                    <div class="listing-image-container">
+
+                        <img
+                            src="https://images.unsplash.com/photo-1601918774946-25832a4be0d6"
+                            alt="Modern city apartment"
+                        >
+
+
+                        <button
+                            class="heart-button"
+                            type="button"
+                            aria-label="Add to favourites"
+                        >
+                            ♡
+                        </button>
+
+                    </div>
+
+
+                    <div class="listing-info">
+
+                        <div class="listing-title-row">
+
+                            <h3>
+                                Modern City Apartment
+                            </h3>
+
+                            <span>
+                                ★ 4.7
+                            </span>
+
+                        </div>
+
+
+                        <p>
+                            Mumbai, India
+                        </p>
+
+
+                        <strong>
+                            ₹5,200 / night
+                        </strong>
+
+
+                        <br>
+
+
+                        <a
+                            href="/listings/3"
+                            class="view-listing"
+                        >
+                            View details →
+                        </a>
+
+                    </div>
+
+                </article>
+
+
+
+                <!-- LISTING 3 -->
+
+                <article class="listing-card">
+
+                    <div class="listing-image-container">
+
+                        <img
+                            src="https://images.unsplash.com/photo-1544986581-efac024faf62"
+                            alt="Beachside retreat"
+                        >
+
+
+                        <button
+                            class="heart-button"
+                            type="button"
+                            aria-label="Add to favourites"
+                        >
+                            ♡
+                        </button>
+
+                    </div>
+
+
+                    <div class="listing-info">
+
+                        <div class="listing-title-row">
+
+                            <h3>
+                                Beachside Retreat
+                            </h3>
+
+                            <span>
+                                ★ 4.8
+                            </span>
+
+                        </div>
+
+
+                        <p>
+                            Goa, India
+                        </p>
+
+
+                        <strong>
+                            ₹6,800 / night
+                        </strong>
+
+
+                        <br>
+
+
+                        <a
+                            href="/listings/4"
+                            class="view-listing"
+                        >
+                            View details →
+                        </a>
+
+                    </div>
+
+                </article>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================
+             WHY STAY-VIHARI
+        ========================== -->
+
+        <section class="section">
+
+            <div class="section-header">
+
+                <div>
+
+                    <p class="section-label">
+                        WHY STAY-VIHARI
+                    </p>
+
+                    <h2>
+                        Travel with confidence
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="categories">
+
+
+                <div class="category-card">
+
+                    <span>
+                        🏡
+                    </span>
+
+                    <h3>
+                        Unique Stays
+                    </h3>
+
+                    <p>
+                        Discover properties designed for memorable
+                        travel experiences.
+                    </p>
+
+                </div>
+
+
+
+                <div class="category-card">
+
+                    <span>
+                        🔎
+                    </span>
+
+                    <h3>
+                        Easy Discovery
+                    </h3>
+
+                    <p>
+                        Search destinations and filter stays to find
+                        exactly what you need.
+                    </p>
+
+                </div>
+
+
+
+                <div class="category-card">
+
+                    <span>
+                        ⭐
+                    </span>
+
+                    <h3>
+                        Trusted Reviews
+                    </h3>
+
+                    <p>
+                        Make better decisions with ratings and
+                        traveller reviews.
+                    </p>
+
+                </div>
+
+
+
+                <div class="category-card">
+
+                    <span>
+                        🔐
+                    </span>
+
+                    <h3>
+                        Secure Accounts
+                    </h3>
+
+                    <p>
+                        Your account and booking information stays
+                        protected.
+                    </p>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <footer>
+
+        <div class="footer-content">
+
+            <h2>
+                Stay-Vihari
+            </h2>
+
+            <p>
+                Discover places. Create memories.
+            </p>
+
+
+            <p class="copyright">
+                © 2026 Stay-Vihari
+            </p>
+
+        </div>
+
+    </footer>
+
+
+</body>
+
+</html>

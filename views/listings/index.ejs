@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Explore Stays | Stay-Vihari</title>
+
+    <link
+        rel="stylesheet"
+        href="/css/style.css"
+    >
+
+</head>
+
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+
+            <a
+                href="/"
+                style="text-decoration: none; color: inherit;"
+            >
+                Stay-Vihari
+            </a>
+
+        </div>
+
+
+        <div class="nav-links">
+
+            <a href="/">
+                Home
+            </a>
+
+            <a href="/listings">
+                Explore
+            </a>
+
+            <a href="/users/login">
+                Login
+            </a>
+
+            <a
+                href="/users/signup"
+                class="signup-btn"
+            >
+                Sign Up
+            </a>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- MAIN CONTENT -->
+
+    <main>
+
+        <section class="listing-page">
+
+
+            <!-- PAGE HEADING -->
+
+            <div class="listing-heading">
+
+                <div>
+
+                    <p class="section-label">
+                        EXPLORE STAYS
+                    </p>
+
+                    <h1>
+                        Find your perfect stay
+                    </h1>
+
+                    <p>
+                        Discover beautiful places for your next journey.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- SEARCH -->
+
+            <form
+                class="listing-search"
+                action="/listings/search"
+                method="GET"
+            >
+
+                <input
+                    type="text"
+                    name="country"
+                    value="<%= searchTerm || '' %>"
+                    placeholder="Search by destination, property or category..."
+                >
+
+                <button type="submit">
+                    Search
+                </button>
+
+            </form>
+
+
+
+            <!-- SEARCH RESULT MESSAGE -->
+
+            <% if (searchTerm) { %>
+
+                <div class="search-result-message">
+
+                    <p>
+
+                        Showing results for:
+
+                        <strong>
+                            <%= searchTerm %>
+                        </strong>
+
+                    </p>
+
+
+                    <a href="/listings">
+                        Clear search
+                    </a>
+
+                </div>
+
+            <% } %>
+
+
+
+            <!-- CATEGORY FILTERS -->
+
+            <div class="filter-bar">
+
+
+                <!-- ALL -->
+
+                <a
+                    href="/listings"
+                    class="<%= activeCategory === 'all' ? 'active-filter' : '' %>"
+                >
+                    All
+                </a>
+
+
+                <!-- TRENDING -->
+
+                <a
+                    href="/listings/category/trending"
+                    class="<%= activeCategory === 'trending' ? 'active-filter' : '' %>"
+                >
+                    🔥 Trending
+                </a>
+
+
+                <!-- MOUNTAINS -->
+
+                <a
+                    href="/listings/category/mountain"
+                    class="<%= activeCategory === 'mountain' ? 'active-filter' : '' %>"
+                >
+                    🏔️ Mountains
+                </a>
+
+
+                <!-- CITY -->
+
+                <a
+                    href="/listings/category/city"
+                    class="<%= activeCategory === 'city' ? 'active-filter' : '' %>"
+                >
+                    🏙️ City
+                </a>
+
+
+                <!-- BEACH -->
+
+                <a
+                    href="/listings/category/beach"
+                    class="<%= activeCategory === 'beach' ? 'active-filter' : '' %>"
+                >
+                    🏖️ Beach
+                </a>
+
+
+                <!-- CAMPING -->
+
+                <a
+                    href="/listings/category/camping"
+                    class="<%= activeCategory === 'camping' ? 'active-filter' : '' %>"
+                >
+                    🏕️ Camping
+                </a>
+
+            </div>
+
+
+
+            <!-- LISTINGS -->
+
+            <% if (listings.length > 0) { %>
+
+                <div class="listing-grid">
+
+
+                    <% listings.forEach(listing => { %>
+
+
+                        <article class="listing-card">
+
+
+                            <!-- IMAGE -->
+
+                            <div class="listing-image-container">
+
+                                <img
+                                    src="<%= listing.image %>"
+                                    alt="<%= listing.title %>"
+                                >
+
+
+                                <!-- HEART -->
+
+                                <button
+                                    class="heart-button"
+                                    type="button"
+                                    aria-label="Add to favourites"
+                                >
+                                    ♡
+                                </button>
+
+                            </div>
+
+
+
+                            <!-- LISTING INFORMATION -->
+
+                            <div class="listing-info">
+
+
+                                <!-- TITLE + RATING -->
+
+                                <div class="listing-title-row">
+
+                                    <h3>
+                                        <%= listing.title %>
+                                    </h3>
+
+                                    <span>
+                                        ★ <%= listing.rating %>
+                                    </span>
+
+                                </div>
+
+
+
+                                <!-- LOCATION -->
+
+                                <p>
+                                    <%= listing.location %>
+                                </p>
+
+
+
+                                <!-- PRICE -->
+
+                                <strong>
+                                    ₹<%= listing.price.toLocaleString("en-IN") %>
+                                    / night
+                                </strong>
+
+
+
+                                <!-- DETAILS -->
+
+                                <br>
+
+                                <a
+                                    class="view-listing"
+                                    href="/listings/<%= listing.id %>"
+                                >
+                                    View details →
+                                </a>
+
+                            </div>
+
+
+                        </article>
+
+
+                    <% }) %>
+
+
+                </div>
+
+
+            <% } else { %>
+
+
+                <!-- NO RESULTS -->
+
+                <div class="no-results">
+
+                    <div class="no-results-icon">
+                        🔎
+                    </div>
+
+                    <h2>
+                        No stays found
+                    </h2>
+
+                    <p>
+                        We couldn't find any stays matching your search.
+                    </p>
+
+                    <a
+                        href="/listings"
+                        class="browse-all-btn"
+                    >
+                        Browse all stays
+                    </a>
+
+                </div>
+
+
+            <% } %>
+
+
+        </section>
+
+    </main>
+
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <div class="footer-content">
+
+            <h2>
+                Stay-Vihari
+            </h2>
+
+            <p>
+                Discover places. Create memories.
+            </p>
+
+            <p class="copyright">
+                © 2026 Stay-Vihari
+            </p>
+
+        </div>
+
+    </footer>
+
+
+</body>
+
+</html>

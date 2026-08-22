@@ -1,49 +1,109 @@
-const express = require("express");
-const mongoose = require("mongoose");
-const session = require("express-session");
-const passport = require("passport");
-const LocalStrategy = require("passport-local");
-const User = require("./models/user");
-const userRoutes = require("./routes/user");
 require("dotenv").config();
+
+const express = require("express");
+const session = require("express-session");
+
+const userRoutes = require("./routes/user");
+const listingRoutes = require("./routes/listings");
+
+const {
+    connectDB
+} = require("./config/db");
+
+const {
+    attachCurrentUser
+} = require("./middleware");
 
 const app = express();
 
 const PORT = 8080;
 
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-app.use("/users", userRoutes);
+
+// =========================
+// VIEW ENGINE
+// =========================
 
 app.set("view engine", "ejs");
+
+
+// =========================
+// MIDDLEWARE
+// =========================
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.static("public"));
+
+
+// =========================
+// SESSION
+// =========================
 
 app.use(
     session({
         secret: process.env.SESSION_SECRET,
         resave: false,
-        saveUninitialized: false,
+        saveUninitialized: false
     })
 );
 
-app.use(passport.initialize());
-app.use(passport.session());
 
-passport.use(new LocalStrategy(User.authenticate()));
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+// =========================
+// CURRENT USER
+// =========================
+
+app.use(attachCurrentUser);
+
+
+// =========================
+// ROUTES
+// =========================
+
+app.use("/users", userRoutes);
+
+app.use("/listings", listingRoutes);
+
+
+// =========================
+// HOME
+// =========================
 
 app.get("/", (req, res) => {
-    res.send("Welcome to Stay-Vihari!");
+    res.render("home");
 });
 
+
+// =========================
+// ABOUT
+// =========================
+
 app.get("/about", (req, res) => {
-    res.send("Stay-Vihari is a travel stay and booking platform.");
+    res.send(
+        "Stay-Vihari is a travel stay and booking platform."
+    );
 });
+
+
+// =========================
+// ERROR HANDLER
+// =========================
+
+app.use((err, req, res, next) => {
+    console.error(err);
+
+    res.status(500).send(
+        "Something went wrong. Please try again."
+    );
+});
+
+
+// =========================
+// START
+// =========================
 
 async function startServer() {
     try {
-        await mongoose.connect(process.env.MONGO_URI);
-        console.log("Connected to MongoDB");
+        await connectDB();
 
         app.listen(PORT, () => {
             console.log(
@@ -51,7 +111,13 @@ async function startServer() {
             );
         });
     } catch (error) {
-        console.error("MongoDB connection failed:", error.message);
+        console.error(
+            "MongoDB connection failed:"
+        );
+
+        console.error(error.message);
+
+        process.exit(1);
     }
 }
 
